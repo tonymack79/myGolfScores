@@ -109,9 +109,33 @@ def logout():
     
     return redirect('/login')
   
+##############################################################
+# Add and select course
+
+@app.route('/course/add', methods=["GET", "POST"])  
+def add_course():
+    """Add a course"""
+    form = CourseForm()
+    
+    if form.validate_on_submit():
+        course_name = form.course_name.data
+        par = form.par.data
+        rating = form.rating.data
+        slope = form.slope.data
+        course = Course(course_name=course_name, par=par, rating=rating, slope=slope)
+        db.session.add(course)
+        db.session.commit()
+        
+        return redirect('/selectcourse')
+    
+    return render_template('add/course.html')
   
-  
-  
+@app.route('/course')
+def select_course():
+    """Select course to input score for"""
+    
+    
+    
 ##############################################################
 # Homepage
 
