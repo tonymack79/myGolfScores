@@ -31,7 +31,7 @@ class User(db.Model):
     
     last_name = db.Column(db.Text,
                            nullable=False)
-    
+    # May have to change password for wtforms-alchemy
     password = db.Column(db.Text,
                          nullable=False)
     
