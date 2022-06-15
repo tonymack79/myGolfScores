@@ -126,15 +126,43 @@ def add_course():
         db.session.add(course)
         db.session.commit()
         
-        return redirect('/selectcourse')
+        return redirect('/course')
     
-    return render_template('add/course.html')
+    return render_template('course/add.html')
   
 @app.route('/course')
 def select_course():
     """Select course to input score for"""
+    search = request.args.get('q')
     
+    if not search:
+        courses = Course.query.all()
+    else:
+        courses = Course.query.filter(Course.course_name.like(f"%{search}")).all()
+        
+    return render_template('course/select.html')
     
+#############################################################
+# Add scores
+
+@app.route('/score')
+def add_score():
+    """Add a score"""
+    form = ScoreForm()
+    
+    if form.validate_on_submit():
+        user_id = session[CURR_USER_KEY]
+        course_id = form.course_id.data
+        score = form.score.data
+        date = form.date.data
+        
+        new_score = Score(user_id=user_id, course_id=course_id, score=score, date=date)
+        db.session.add(new_score)
+        db.session.commit()
+        
+        return redirect('/')
+    
+    return render_template('score.html', form=form)
     
 ##############################################################
 # Homepage
@@ -144,7 +172,9 @@ def homepage():
     """Homepage"""
     
     if g.user:
-        return render_template('home.html')
+        scores = Score.query.filter_by(user_id=session[CURR_USER_KEY]).all()
+        
+        return render_template('home.html', scores=scores)
     
     else:
         return redirect('/login')
