@@ -91,12 +91,6 @@ class Course(db.Model):
     
     par = db.Column(db.Integer,
                     nullable=False)
-    
-    rating = db.Column(db.Integer,
-                    nullable=False)
-    
-    slope = db.Column(db.Integer,
-                    nullable=False)
   
 class Score(db.Model):
     """Class for adding a users score"""

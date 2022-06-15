@@ -120,9 +120,7 @@ def add_course():
     if form.validate_on_submit():
         course_name = form.course_name.data
         par = form.par.data
-        rating = form.rating.data
-        slope = form.slope.data
-        course = Course(course_name=course_name, par=par, rating=rating, slope=slope)
+        course = Course(course_name=course_name, par=par)
         db.session.add(course)
         db.session.commit()
         
@@ -173,8 +171,9 @@ def homepage():
     
     if g.user:
         scores = Score.query.filter_by(user_id=session[CURR_USER_KEY]).all()
+        user = g.user
         
-        return render_template('home.html', scores=scores)
+        return render_template('home.html', scores=scores, user=user)
     
     else:
         return redirect('/login')
