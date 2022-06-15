@@ -118,8 +118,7 @@ class Score(db.Model):
     score = db.Column(db.Integer,
                       nullable=False)
     
-    date = db.Column(db.DateTime,
-                     nullable=False)
+    date = db.Column(db.DateTime)
     
     @property
     def friendly_date(self):
