@@ -85,7 +85,7 @@ def login():
     """Handle user login."""
 
     form = LoginForm()
-
+    print('Inside route')
     if form.validate_on_submit():
         user = User.authenticate(form.username.data,
                                  form.password.data)
