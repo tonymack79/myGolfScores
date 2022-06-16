@@ -5,46 +5,41 @@
   <meta charset="UTF-8">
   <title>My Golf Scores</title>
 
-  <link rel="stylesheet"
-        href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
   <script src="https://unpkg.com/jquery"></script>
   <script src="https://unpkg.com/popper"></script>
-  <script src="https://unpkg.com/bootstrap"></script>
 
   <link rel="stylesheet"
         href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
   <link rel="stylesheet" href="/static/stylesheets/style.css">
   <link rel="shortcut icon" href="/static/favicon.ico">
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+  rel="stylesheet"/>
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
-<nav class="navbar navbar-expand">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a href="/" class="navbar-brand">
-        <span class="fa-solid fa-golf-ball-tee"></span>
-        <span>My Golf Scores</span>
-      </a>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
+<nav class="navbar navbar-light light-blue lighten-4">
+  <a href="/" class="navbar-brand">
+    <span class="fa-solid fa-golf-ball-tee"></span>
+    <span>My Golf Scores</span>
+  </a>
+  <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+    aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
+        class="fas fa-bars fa-1x"></i></span></button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+    <ul class="navbar-nav mr-auto">
       {% if not g.user %}
-      <li><a href="/signup">Sign up</a></li>
-      <li><a href="/login">Log in</a></li>
+      <li class="nav-item"><a class="nav-link" href="/signup">Sign up</a></li>
+      <li class="nav-item"><a class="nav-link" href="/login">Log in</a></li>
       {% else %}
-      <li>
-        <a href="/users/{{ g.user.id }}">
-          <img src="{{ g.user.image_url }}" alt="{{ g.user.username }}">
-        </a>
-      </li>
-      <li><a href="/messages/new">New Message</a></li>
-      <li><a href="/logout">Log out</a></li>
+      <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
       {% endif %}
     </ul>
   </div>
 </nav>
-<div class="container">
+<div class="">
   {% for category, message in get_flashed_messages(with_categories=True) %}
-  <div class="alert alert-{{ category }}">{{ message }}</div>
+  <div class="">{{ message }}</div>
   {% endfor %}
 
   {% block content %}
