@@ -2,13 +2,15 @@ import os
 
 from flask import Flask, render_template, request, flash, redirect, session, g
 from sqlalchemy.exc import IntegrityError
-
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from forms import UserAddForm, LoginForm, CourseForm, ScoreForm
 from models import db, connect_db, User, Course, Score
 
+login_manager = LoginManager()
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
+
 
 # Get DB_URI from environ variable (useful for production/testing) or,
 # if not set there, use development local db.
@@ -17,35 +19,19 @@ app.config['SQLALCHEMY_DATABASE_URI'] = (
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "dallas679chester123")
+
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 connect_db(app)
 
 #########################################################################
 # User signup/login/logout
+@login_manager.user_loader
+def load_user(user_id):
+   return User.query.get(int(user_id))
 
-@app.before_request
-def add_user_to_g():
-    """If we're logged in, add curr user to Flask global."""
-
-    if CURR_USER_KEY in session:
-        g.user = User.query.get(session[CURR_USER_KEY])
-
-    else:
-        g.user = None
-
-
-def do_login(user):
-    """Log in user."""
-
-    session[CURR_USER_KEY] = user.id
-
-
-def do_logout():
-    """Logout user."""
-
-    if CURR_USER_KEY in session:
-        del session[CURR_USER_KEY]
         
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
@@ -85,26 +71,27 @@ def login():
     """Handle user login."""
 
     form = LoginForm()
-    print('Inside route')
+
     if form.validate_on_submit():
-        user = User.authenticate(form.username.data,
-                                 form.password.data)
-
+        user = User.query.filter_by(username=form.username.data).first()
         if user:
-            do_login(user)
-            flash(f"Hello, {user.username}!", "success")
-            return redirect("/")
-
-        flash("Invalid credentials.", 'danger')
-
+            check_password = User.check_password_hash(form.username.data, form.password.data)
+            if check_password:
+                login_user(user)
+                flash(f"Hello, {user.username}!", "success")
+                return redirect("/")
+            else:
+                flash("Invalid password.", 'danger')
+        else:
+            flash("User doesn't exist.", 'danger')
     return render_template('users/login.html', form=form)
 
 
 @app.route('/logout')
+@login_required
 def logout():
     """Handle logout of user."""
-
-    do_logout()
+    logout_user()
     flash("Thank you, Come again!", "primary")
     
     return redirect('/login')
@@ -113,6 +100,7 @@ def logout():
 # Add and select course
 
 @app.route('/course/add', methods=["GET", "POST"])  
+@login_required
 def add_course():
     """Add a course"""
     form = CourseForm()
@@ -126,9 +114,10 @@ def add_course():
         
         return redirect('/course')
     
-    return render_template('course/add.html')
+    return render_template('course/add.html', form=form)
   
 @app.route('/course')
+@login_required
 def select_course():
     """Select course to input score for"""
     search = request.args.get('q')
@@ -144,6 +133,7 @@ def select_course():
 # Add scores
 
 @app.route('/score')
+@login_required
 def add_score():
     """Add a score"""
     form = ScoreForm()
@@ -166,14 +156,12 @@ def add_score():
 # Homepage
 
 @app.route('/')
+@login_required
 def homepage():
     """Homepage"""
+    id = session['_user_id']
     
-    if g.user:
-        scores = Score.query.filter_by(user_id=session[CURR_USER_KEY]).all()
-        user = g.user
-        
-        return render_template('home.html', scores=scores, user=user)
+    user = User.query.get(id)
     
-    else:
-        return redirect('/login')
+    return render_template('home.html', user=user)
+    
