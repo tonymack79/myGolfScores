@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>My Golf Scores</title>
 
-  <script src="https://unpkg.com/jquery"></script>
+  <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js'></script>
   <script src="https://unpkg.com/popper"></script>
 
   <link rel="stylesheet"
@@ -23,20 +23,20 @@
     <span class="fa-solid fa-golf-ball-tee"></span>
     <span>My Golf Scores</span>
   </a>
-  <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+  <!-- <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
     aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
         class="fas fa-bars fa-1x"></i></span></button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent1">
     <ul class="navbar-nav mr-auto">
-      {% if not g.user %}
       <li class="nav-item"><a class="nav-link" href="/signup">Sign up</a></li>
       <li class="nav-item"><a class="nav-link" href="/login">Log in</a></li>
-      {% else %}
+      <li class="nav-item"><a class="nav-link" href="/logout">Scores</a></li>
+      <li class="nav-item"><a class="nav-link" href="/logout">Courses</a></li>
       <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
-      {% endif %}
     </ul>
-  </div>
+  </div> -->
 </nav>
+
 <div class="">
   {% for category, message in get_flashed_messages(with_categories=True) %}
   <div class="">{{ message }}</div>

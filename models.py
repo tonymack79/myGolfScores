@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 from flask_bcrypt import Bcrypt
 import datetime
 
@@ -11,7 +12,7 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
     
-class User(db.Model):
+class User(UserMixin, db.Model):
     """Class for creating a user model"""
 
     __tablename__ = 'users'
@@ -58,16 +59,8 @@ class User(db.Model):
         return user
       
     @classmethod
-    def authenticate(cls, username, password):
-        """Find user with `username` and `password`.
-
-        This is a class method (call it on the class, not an individual user.)
-        It searches for a user whose password hash matches this password
-        and, if it finds such a user, returns that user object.
-
-        If can't find matching user (or if password is wrong), returns False.
-        """
-
+    def check_password_hash(cls, username, password):
+        """Check password hash"""
         user = cls.query.filter_by(username=username).first()
 
         if user:
@@ -76,6 +69,7 @@ class User(db.Model):
                 return user
 
         return False
+          
 
 class Course(db.Model):
     """Class for adding a golf course"""

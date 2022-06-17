@@ -1,4 +1,6 @@
 from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField
+from wtforms.validators import DataRequired
 from wtforms_alchemy import model_form_factory
 from models import db, User, Course, Score
 
@@ -14,11 +16,10 @@ class UserAddForm(ModelForm):
     class Meta:
         model = User
 
-class LoginForm(ModelForm):
+class LoginForm(FlaskForm):
     """Form for logging in a user"""
-    class Meta:
-        model = User
-        only = ['username', 'password']
+    username = StringField("Username", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired()])
 
 class CourseForm(ModelForm):
     """Form for adding a golf course"""

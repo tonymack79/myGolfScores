@@ -4,15 +4,7 @@
 
 {% block content %}
 
-<h1>{{user.first_name}}'s Scores</h1>
-
-<div>
-  {% for score in scores %}
-    {{score.course_name}}
-    {{score.date}}
-    {{score.score}}
-  {% endfor %}
-</div>
+<h1>{{user.first_name}}</h1>
 <div>
   <form action="/course">
     <button>Add New Score</button>
