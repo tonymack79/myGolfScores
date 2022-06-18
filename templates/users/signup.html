@@ -6,18 +6,17 @@
 
   <div class="">
   <div class="">
-    <h2 class="">Sign up for My Golf Scores</h2>
-    <form method="POST" id="user_form">
+    <form method="POST" id="user_form" class="text-center border border-light p-5">
       {{ form.hidden_tag() }}
-
+      <p class="h4 mb-4">Sign up for My Golf Scores</p>
       {% for field in form if field.widget.input_type != 'hidden' %}
         {% for error in field.errors %}
           <span class="">{{ error }}</span>
         {% endfor %}
-        {{ field(placeholder=field.label.text, class="") }}
+        {{ field(placeholder=field.label.text, class="form-control mb-4") }}
       {% endfor %}
 
-      <button class="">Sign me up!</button>
+      <button class="btn btn-info my-4 btn-block">Sign me up!</button>
     </form>
   </div>
 </div>
