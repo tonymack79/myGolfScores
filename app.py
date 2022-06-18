@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request, flash, redirect, session, g
 from sqlalchemy.exc import IntegrityError
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from forms import UserAddForm, LoginForm, CourseForm, ScoreForm
+from forms import LoginForm, CourseForm, ScoreForm, SignupForm
 from models import db, connect_db, User, Course, Score
 
 login_manager = LoginManager()
@@ -42,7 +42,7 @@ def signup():
     and re-present form.
     """
 
-    form = UserAddForm()
+    form = SignupForm()
 
     if form.validate_on_submit():
         try:

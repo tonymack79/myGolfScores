@@ -8,17 +8,21 @@
     <div class="">
       <h2 class="">Welcome back.</h2>
 
-      <form method="POST" id="user_form">
+      <form method="POST" id="user_form" class="text-center border border-light p-5">
         {{ form.hidden_tag() }}
-
+        <p class="h4 mb-4">Sign in</p>
         {% for field in form if field.widget.input_type != 'hidden' %}
           {% for error in field.errors %}
             <span class="">{{ error }}</span>
           {% endfor %}
-          {{ field(placeholder=field.label.text, class="") }}
+          {{ field(placeholder=field.label.text, class="form-control mb-4") }}
         {% endfor %}
 
-        <button class="">Log in</button>
+        <button class="btn btn-info btn-block my-4">Log in</button>
+
+        <p>Not a member?
+          <a href="/signup">Register</a>
+        </p>
       </form>
     </div>
   </div>
