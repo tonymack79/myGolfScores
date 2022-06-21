@@ -58,7 +58,7 @@ def signup():
             flash("Username already taken", 'danger')
             return render_template('users/signup.html', form=form)
 
-        do_login(user)
+        login_user(user)
 
         return redirect("/")
 
@@ -127,20 +127,21 @@ def select_course():
     else:
         courses = Course.query.filter(Course.course_name.like(f"%{search}")).all()
         
-    return render_template('course/select.html')
+    return render_template('course/select.html', courses=courses)
     
 #############################################################
 # Add scores
 
-@app.route('/score')
+@app.route('/score/<int:c_id>', methods=["GET", "POST"])
 @login_required
-def add_score():
+def add_score(c_id):
     """Add a score"""
     form = ScoreForm()
+    u_id = session['_user_id']   
     
     if form.validate_on_submit():
-        user_id = session[CURR_USER_KEY]
-        course_id = form.course_id.data
+        user_id = u_id
+        course_id = c_id
         score = form.score.data
         date = form.date.data
         
