@@ -5,6 +5,9 @@
 {% block content %}
 
 <div class="container">
+  <form action="/course/add">
+    <button class="btn btn-info my-4 btn-block">Add Course</button>
+  </form>
   <div class="row justify-content-center">
     {% for course in courses %}
       <div class="card">
