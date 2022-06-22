@@ -7,22 +7,24 @@
   <div class="d-flex justify-content-center">
     <h1 class="h3-responsive">{{user.first_name}}'s Scores</h1>
   </div>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center m-2">
     <form action="/course">
-      <button class="btn btn-info">Add New Score</button>
+      <button class="btn btn-success">Add New Score</button>
     </form>   
   </div>
   <div class="row justify-content-center">
+    <div class="col-7">
     {% for score in scores %}
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title"><a>{{score.course.course_name}}</a></h4>
-          <p class="card-text">{{score.score}}</p>
-          <p class="card-text">{{score.date.strftime("%B %-d, %Y")}}</p>
+      <div class="card m-1">
+        <div class="card-body p-2">
+          <h5 class="card-title mb-0"><a>{{score.course.course_name}}</a></h5>
+          <p class="card-text mb-0">{{score.score}}</p>
+          <p class="card-text"><small class="text-muted">{{score.date.strftime("%B %-d, %Y")}}</small></p>
         </div>
       </div>
     {% endfor %}
   </div>
+</div>
 </div>
 
 {% endblock %}

@@ -5,7 +5,7 @@
 {% block content %}
 
   <div class="container">
-    <div class="">
+    <div class="d-flex justify-content-center">
       <form method="POST" id="course_form" class="text-center border border-light p-5">
         {{ form.hidden_tag() }}
         <p class="h4 mb-4">Add a new course</p>
@@ -15,7 +15,7 @@
           {% endfor %}
           {{ field(placeholder=field.label.text, class="form-control mb-4") }}
         {% endfor %}
-        <button class="btn btn-info btn-block my-4">Add Course</button>
+        <button class="btn btn-primary btn-block my-4">Add Course</button>
       </form>
     </div>
   </div>

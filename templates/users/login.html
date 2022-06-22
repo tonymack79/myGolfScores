@@ -5,8 +5,7 @@
 {% block content %}
 
   <div class="container">
-    <div class="">
-      <h2 class="">Welcome back.</h2>
+    <div class="d-flex justify-content-center">
 
       <form method="POST" id="user_form" class="text-center border border-light p-5">
         {{ form.hidden_tag() }}
@@ -18,7 +17,7 @@
           {{ field(placeholder=field.label.text, class="form-control mb-4") }}
         {% endfor %}
 
-        <button class="btn btn-info btn-block my-4">Log in</button>
+        <button class="btn btn-primary btn-block my-4">Log in</button>
 
         <p>Not a member?
           <a href="/signup">Register</a>
