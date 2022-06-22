@@ -4,9 +4,9 @@
 
 {% block content %}
 
+  <div class="container">
   <div class="">
-  <div class="">
-    <form method="POST" id="user_form" class="text-center border border-light p-5">
+    <form method="POST" id="signup_form" class="text-center border border-light p-5">
       {{ form.hidden_tag() }}
       <p class="h4 mb-4">Sign up for My Golf Scores</p>
       {% for field in form if field.widget.input_type != 'hidden' %}

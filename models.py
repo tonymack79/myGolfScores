@@ -108,6 +108,8 @@ class Score(db.Model):
     
     date = db.Column(db.DateTime)
     
+    course = db.relationship('Course')
+    
     @property
     def friendly_date(self):
         """Return nicely formatted date"""

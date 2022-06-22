@@ -12,6 +12,17 @@
       <button class="btn btn-info">Add New Score</button>
     </form>   
   </div>
+  <div class="row justify-content-center">
+    {% for score in scores %}
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"><a>{{score.course.course_name}}</a></h4>
+          <p class="card-text">{{score.score}}</p>
+          <p class="card-text">{{score.date.strftime("%B %-d, %Y")}}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}

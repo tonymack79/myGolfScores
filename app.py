@@ -163,6 +163,7 @@ def homepage():
     id = session['_user_id']
     
     user = User.query.get(id)
+    scores = Score.query.filter_by(user_id=id).order_by(Score.date.desc()).all()
     
-    return render_template('home.html', user=user)
+    return render_template('home.html', user=user, scores=scores)
     
