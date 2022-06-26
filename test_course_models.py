@@ -20,7 +20,7 @@ class CourseModelTestCase(TestCase):
         db.drop_all()
         db.create_all()
         
-        c1 = Course(course_name="testcourse", par=72, slope=74, rating=120)
+        c1 = Course(course_name="testcourse", par=72)
         cid1 = 1111
         c1.id = cid1
         
