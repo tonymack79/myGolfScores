@@ -153,10 +153,10 @@ def add_score(c_id):
     
     return render_template('score.html', form=form)
   
-@app.route('/score/<int:id>', methods=["GET"])
-@login_required
-def view_score(id):
-    return render_template('home.html')
+# @app.route('/score/<int:id>', methods=["GET"])
+# @login_required
+# def view_score(id):
+#     return render_template('home.html')
     
 ##############################################################
 # Homepage
