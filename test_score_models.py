@@ -24,7 +24,7 @@ class ScoreModelTestCase(TestCase):
         uid = 123
         u.id = uid
         
-        c = Course(course_name="test course", par=72, slope=74, rating=120)
+        c = Course(course_name="test course", par=72)
         cid = 111
         c.id = cid
         

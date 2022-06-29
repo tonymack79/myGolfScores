@@ -132,7 +132,7 @@ def select_course():
 #############################################################
 # Add scores
 
-@app.route('/score/<int:c_id>', methods=["GET", "POST"])
+@app.route('/course/<int:c_id>/score/add', methods=["GET", "POST"])
 @login_required
 def add_score(c_id):
     """Add a score"""
@@ -152,6 +152,11 @@ def add_score(c_id):
         return redirect('/')
     
     return render_template('score.html', form=form)
+  
+# @app.route('/score/<int:id>', methods=["GET"])
+# @login_required
+# def view_score(id):
+#     return render_template('home.html')
     
 ##############################################################
 # Homepage

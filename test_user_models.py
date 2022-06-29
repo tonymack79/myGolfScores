@@ -80,15 +80,3 @@ class UserModelTestCase(TestCase):
           with self.assertRaises(ValueError) as context:
               User.signup("testtest", "test", "test", None)
             
-    ### Authentication
-    
-      def test_valid_authentication(self):
-          u = User.authenticate(self.u1.username, "password")
-          self.assertIsNotNone(u)
-          self.assertEqual(u.id, self.uid1)
-    
-      def test_invalid_username(self):
-          self.assertFalse(User.authenticate("badusername", "password"))
-
-      def test_wrong_password(self):
-          self.assertFalse(User.authenticate(self.u1.username, "badpassword"))
